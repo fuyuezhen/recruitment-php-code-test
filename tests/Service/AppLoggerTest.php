@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use App\Service\AppLogger;
 
 /**
- * Class ProductHandlerTest
+ * Class AppLoggerTest
  */
 class AppLoggerTest extends TestCase
 {

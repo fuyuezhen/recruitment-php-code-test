@@ -55,14 +55,38 @@ class ProductHandlerTest extends TestCase
         ],
     ];
 
+    private $productHandler;
+
+    public function setUp() :void
+    {
+        $this->productHandler = new ProductHandler($this->products);
+    }
+
     public function testGetTotalPrice()
     {
-        $totalPrice = 0;
-        foreach ($this->products as $product) {
-            $price = $product['price'] ?: 0;
-            $totalPrice += $price;
-        }
-
+        $totalPrice = $this->productHandler->getTotalPrice();
+        
         $this->assertEquals(143, $totalPrice);
+    }
+
+    public function testGetProductsByType()
+    {
+        $result = $this->productHandler->getProductsByType("Dessert");
+        $this->assertCount(2, $result);
+        
+        return $result;
+    }
+
+    public function testCreatedToTimestamp()
+    {
+        $result = $this->productHandler->createdToTimestamp();
+        
+        $this->assertTrue(is_array($result));
+        // 断言数组$result中含有索引create_at
+        $this->assertArrayHasKey('create_at', $result[0]);
+
+        $this->assertTrue(is_int($result[0]['create_at']));
+        
+        return $result;
     }
 }
